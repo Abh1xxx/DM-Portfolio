@@ -981,3 +981,123 @@ footer {
 .project-card:hover > img { transform: scale(1.045); }
 .skill-card { transition: transform .28s ease, border-color .28s ease, box-shadow .28s ease; }
 .skill-card:hover { transform: translateY(-4px); border-color: rgba(158, 201, 255, .38); box-shadow: 0 16px 36px rgba(3, 8, 20, .45); }
+
+:root {
+  --text-primary: #eef5ff;
+  --accent-color: #0d6efd;
+  --accent-rgb: 13, 111, 255;
+  --error-color: #dc3545;
+  --success-color: #28a745;
+}
+
+/* Visitor Counter */
+.visitor-count {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px 30px;
+  color: #69748f;
+  text-align: center;
+  font-size: 0.72rem;
+}
+
+/* Contact Form */
+.formspree-form {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(13, 111, 255, 0.25);
+}
+
+.form-group input.error,
+.form-group textarea.error {
+  border-color: var(--error-color);
+}
+
+.form-error {
+  font-size: 0.85rem;
+  color: var(--error-color);
+  min-height: 1.2rem;
+  display: block;
+}
+
+.submit-button {
+  padding: 0.75rem 2rem;
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+  font-size: 1rem;
+}
+
+.submit-button:not(:disabled):hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.submit-button:not(:disabled):active {
+  transform: translateY(0);
+}
+
+.submit-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.submit-button.submitting {
+  background: var(--accent-color);
+  opacity: 0.7;
+}
+
+.form-success {
+  padding: 1.5rem;
+  background: rgba(40, 167, 69, 0.1);
+  border: 1px solid rgba(40, 167, 69, 0.3);
+  border-radius: 4px;
+  color: var(--success-color);
+  text-align: center;
+  font-style: italic;
+}

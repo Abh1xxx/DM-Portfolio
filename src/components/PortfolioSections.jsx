@@ -1,5 +1,6 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { useForm } from "@formspree/react";
 import {
   contentMedia,
   marketplaces,
@@ -344,6 +345,75 @@ function WorkPanel({ tab }) {
   return <ProjectGallery />;
 }
 
+function VisitorCounter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    fetch("https://api.countapi.xyz/hit/abhiram-k-rajan-portfolio/visits")
+      .then((response) => response.json())
+      .then((data) => setCount(data.value))
+      .catch(() => setCount(0));
+  }, []);
+
+  return <span className="visitor-count">{count}</span>;
+}
+
+function ContactForm() {
+  const [state, handleSubmit] = useForm("mbgdqpvz");
+
+  if (state.succeeded) {
+    return <p className="form-success">Thanks for your message! I'll get back to you soon.</p>;
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="formspree-form">
+      <div className="form-group">
+        <label htmlFor="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          className={state.errors?.name ? "error" : ""}
+        />
+        {state.errors?.name && <span className="form-error">{state.errors.name}</span>}
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          className={state.errors?.email ? "error" : ""}
+        />
+        {state.errors?.email && <span className="form-error">{state.errors.email}</span>}
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="message">Message</label>
+        <textarea
+          id="message"
+          name="message"
+          required
+          rows="5"
+          className={state.errors?.message ? "error" : ""}
+        />
+        {state.errors?.message && <span className="form-error">{state.errors.message}</span>}
+      </div>
+
+      <button
+        type="submit"
+        disabled={state.submitting}
+        className={`submit-button ${state.submitting ? "submitting" : ""}`}
+      >
+        {state.submitting ? "Sending..." : "Send Message"}
+      </button>
+    </form>
+  );
+}
+
 export default function PortfolioSections() {
   const [activeTab, setActiveTab] = useState(workTabs[0]);
   const onTabKeyDown = (event, index) => {
@@ -553,6 +623,14 @@ export default function PortfolioSections() {
             For roles, collaborations, or project conversations, reach out
             directly.
           </p>
+
+          {/* Add the contact form */}
+          <div className="contact-form">
+            <h3>Send me a message</h3>
+            <ContactForm />
+          </div>
+
+          {/* Keep existing contact links (optional) */}
           <div className="contact-links">
             <a href="mailto:abhirammain01@gmail.com">
               <span>Email</span>
@@ -582,7 +660,10 @@ export default function PortfolioSections() {
           </div>
         </Reveal>
       </section>
-      <footer>© {new Date().getFullYear()} Abhiram K Rajan</footer>
+      <footer className="site-footer">
+        © {new Date().getFullYear()} Abhiram K Rajan
+        <VisitorCounter />
+      </footer>
     </div>
   );
 }
