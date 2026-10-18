@@ -345,17 +345,44 @@ function WorkPanel({ tab }) {
   return <ProjectGallery />;
 }
 
+const VisitorIcon = () => (
+  <svg
+    className="visitor-icon-svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+    <circle cx="12" cy="12" r="3" />
+  </svg>
+);
+
 function VisitorCounter() {
   const [count, setCount] = useState(0);
+  const hasFetched = useRef(false);
 
   useEffect(() => {
-    fetch("https://api.countapi.xyz/hit/abhiram-k-rajan-portfolio/visits")
+    if (hasFetched.current) return;
+    hasFetched.current = true;
+    fetch("https://countapi.mileshilliard.com/api/v1/hit/abhiram-k-rajan-portfolio-visits")
       .then((response) => response.json())
       .then((data) => setCount(data.value))
       .catch(() => setCount(0));
   }, []);
 
-  return <span className="visitor-count">{count}</span>;
+  return (
+    <div className="visitor-counter">
+      <span className="visitor-label">visitors</span>
+      <div className="visitor-display">
+        <VisitorIcon />
+        <span className="visitor-number">{count}</span>
+      </div>
+    </div>
+  );
 }
 
 function ContactForm() {
